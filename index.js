@@ -1,8 +1,8 @@
-var express = require('express');
-var { graphqlHTTP } = require('express-graphql');
-var { buildSchema } = require('graphql');
+const express = require('express');
+const { graphqlHTTP } = require('express-graphql');
+const { buildSchema } = require('graphql');
 
-var gameCatalogue = [
+let gameCatalogue = [
     {
         "id": 1,
         "title": "Game B",
@@ -55,7 +55,7 @@ var gameCatalogue = [
 ]
 
 // Construct a schema, using GraphQL schema language
-var schema = buildSchema(`
+const schema = buildSchema(`
   type Query {
     games: [Game]
   },
@@ -83,11 +83,11 @@ var schema = buildSchema(`
 `);
 
 // The root provides a resolver function for each API endpoint
-var root = {
+const root = {
     games: () => gameCatalogue
 };
 
-var app = express();
+const app = express();
 app.use('/graphql', graphqlHTTP({
     schema: schema,
     rootValue: root,
